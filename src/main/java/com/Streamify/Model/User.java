@@ -11,17 +11,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "User" )
+@Table(name = "[User]" )
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    @Column(name = "First_Name")
+    private long id;
+    @Column(name = "FirstName")
     private String FirstName;
-    @Column(name = "Last_Name")
+    @Column(name = "PassWord")
+    private String Password;
+    @Column(name = "LastName")
     private String LastName;
-    @Column(name = "Email_ID")
-    private  String EmailID;
+    @Column(name = "Email")
+    private String Email;
+    @Column (name = "IsAdmin")
+    private Boolean IsAdmin;
 
 
 }
