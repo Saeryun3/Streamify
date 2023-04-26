@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 //import java.util.List;
 @CrossOrigin("*")
@@ -28,9 +29,19 @@ public class VideoController {
     public List<Video> GetAllVideos(){return videoRepository.findAll();}
     @PostMapping
     public ResponseEntity<String> createdVideo(@RequestBody Video video) {
-        videoRepository.save(video);
+        videoService.addVideo(video);
         return ResponseEntity.status(HttpStatus.CREATED).body("Video created successfully");
     }
+    @DeleteMapping("/video/{id}")
+    public ResponseEntity<String>deleteVideoById(@PathVariable Long videoId){
+        Boolean isDeleted = videoService.deleteVideoById(videoId);
+        if (!isDeleted){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok("Video with id" + videoId + "has been deleted.");
+    }
+
+
 
 
 

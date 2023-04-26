@@ -34,4 +34,18 @@ public class VideoService {
     public Video addVideo (Video video){
         return videoRepository.save(video); // VideoRepository.save(video);
     }
+    public Boolean deleteVideoById(Long id){
+      Video video = videoRepository.findById(id).orElse(null);
+      if(video.equals(null)) {
+          //deleten lukt niet
+          return false;
+      }
+      else {
+          //delete video
+          videoRepository.deleteById(id);
+          return true;
+      }
+    }
+
+
 }
