@@ -19,30 +19,28 @@ import java.util.Optional;
 //import java.util.List;
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/video")
+@RequestMapping("/api/v1")
 public class VideoController {
     @Autowired
-    private VideoRepository videoRepository;
-    @Autowired
     private  VideoService videoService;
-    @GetMapping
-    public List<Video> GetAllVideos(){return videoRepository.findAll();}
+    @GetMapping("/videos")
+    public List<Video> GetAllVideos(){return videoService.getVideos();}
     @PostMapping
     public ResponseEntity<String> createdVideo(@RequestBody Video video) {
         videoService.addVideo(video);
         return ResponseEntity.status(HttpStatus.CREATED).body("Video created successfully");
     }
-    @DeleteMapping("/video/{id}")
+    @DeleteMapping("/video/{videoId}")
     public ResponseEntity<String>deleteVideoById(@PathVariable Long videoId){
         Boolean isDeleted = videoService.deleteVideoById(videoId);
         if (!isDeleted){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok("Video with id" + videoId + "has been deleted.");
+        return ResponseEntity.ok("Video with id " + videoId + " has been deleted.");
     }
 
-
-
-
-
+    @GetMapping("/search")
+    public List<Video> getVideosBySearchInput(@RequestParam String query) {
+        return videoService.getVideosBySearchInput(query);
+    }
 }

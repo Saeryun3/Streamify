@@ -5,11 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Streamify.Model.User;
 
+import java.util.List;
+
 @Service
 public class UserService {
+    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
+    public User getUserById(long ID){
+        return userRepository.getUserById(ID);// findbyallID??
+    }
+    public User save(User save){
+        return userRepository.save(save);
+    }
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

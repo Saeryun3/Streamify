@@ -21,17 +21,14 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private UserService userService;
     @GetMapping("/{ID}")
     public User GetUserById(@PathVariable Long ID) {
-        return userRepository.getUserById(ID);
+        return userService.getUserById(ID);
     }
     // Create user REST API
     @PostMapping
-    public User CreateUser(@RequestBody User user) {return userRepository.save(user);}
+    public User CreateUser(@RequestBody User user) {return userService.save(user);}
 
 
     @PostMapping("/login")
