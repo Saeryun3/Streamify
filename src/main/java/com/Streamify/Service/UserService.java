@@ -13,8 +13,13 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User getUserById(long ID){
-        return userRepository.getUserById(ID);// findbyallID??
+        return userRepository.getUserById(ID);
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email);
+    }
+
     public User save(User save){
         return userRepository.save(save);
     }

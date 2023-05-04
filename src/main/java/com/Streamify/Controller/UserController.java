@@ -26,6 +26,11 @@ public class UserController {
     public User GetUserById(@PathVariable Long ID) {
         return userService.getUserById(ID);
     }
+
+    @GetMapping("")
+    public User GetUserByEmail(@RequestParam String email) {
+        return userService.getUserByEmail(email);
+    }
     // Create user REST API
     @PostMapping
     public User CreateUser(@RequestBody User user) {return userService.save(user);}
@@ -33,8 +38,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> LoginUser(@RequestBody ObjectNode json) {
-        String Email = json.get("Email").asText();
-        String Password = json.get("Password").asText();
+        String Email = json.get("email").asText();
+        String Password = json.get("password").asText();
         Map<String, String> map = new HashMap<>();
         if (userService.LoginUser(Email, Password)){
             map.put("message", "Login successful");
@@ -43,7 +48,7 @@ public class UserController {
         } else{
             map.put("message", "Invalid username or password");
             map.put("login", "false");
-            return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 }
