@@ -27,5 +27,4 @@ public class User {
     @Column (name = "isAdmin")
     private Boolean isAdmin;
 
-
 }

@@ -21,6 +21,7 @@ public class UserService {
     }
 
     public User save(User save){
+        save.setIsAdmin(false);
         return userRepository.save(save);
     }
     public UserService(UserRepository userRepository) {
