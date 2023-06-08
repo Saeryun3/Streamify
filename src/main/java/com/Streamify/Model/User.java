@@ -1,10 +1,13 @@
 package com.Streamify.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +27,10 @@ public class User {
     private String lastName;
     @Column(name = "email", unique = true)
     private String email;
-    @Column (name = "isAdmin")
+    @Column(name = "isAdmin")
     private Boolean isAdmin;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Review> review;
 
 }

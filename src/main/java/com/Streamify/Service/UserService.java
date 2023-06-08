@@ -36,6 +36,19 @@ public class UserService {
             return false;
         }
     }
+    public boolean LoginAdmin(String Email, String Password) {
+        User user = userRepository.getUserByEmail(Email);
+
+        if(user != null && user.getPassword().equals(Password) && user.getIsAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public List<User> getAdminUsers() {
+        return userRepository.findByIsAdmin(true);
+    }
+
 }
 
 //@Service

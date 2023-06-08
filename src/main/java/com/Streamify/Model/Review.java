@@ -1,5 +1,6 @@
 package com.Streamify.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,12 +18,13 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
     @Column(name = "Score")
-    private Score score;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "video_id")
-//    private Video video;
+    private int score;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "video_id")
+    @JsonIgnore
+    private Video video;
 }
 

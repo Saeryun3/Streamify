@@ -1,5 +1,6 @@
 package com.Streamify.Controller;
 
+import com.Streamify.Model.Category;
 import com.Streamify.Model.Video;
 // import com.Streamify.exception.ResourceNotFoundException;
 import com.Streamify.Repository.UserRepository;
@@ -38,9 +39,16 @@ public class VideoController {
         }
         return ResponseEntity.ok("Video with id " + videoId + " has been deleted.");
     }
-
     @GetMapping("/search")
     public List<Video> getVideosBySearchInput(@RequestParam String query) {
         return videoService.getVideosBySearchInput(query);
+    }
+    @GetMapping("/category")
+    public List<Video> getVideoByCategory(@RequestParam String categoryName){
+        return videoService.getVideosByCategoryName(categoryName);
+    }
+    @GetMapping("/categories")
+    public List<String> getAllCategories(){
+        return videoService.getAllCategories();
     }
 }

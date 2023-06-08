@@ -19,9 +19,34 @@ public class ReviewService {
         return reviewRepository.findById(id).orElse(null);
     }
 
-    public void deleteReviewById(Long id) {
-        reviewRepository.deleteById(id);
+    public Boolean deleteReviewById(Long id) {
+        Review review = reviewRepository.findById(id).orElse(null);
+        if (review.equals(null)){
+            return false;
+        }
+        else {
+            reviewRepository.deleteById(id);
+            return true;
+        }
     }
+    public Review updateReview(Long reviewId, Review updatedReview) {
+        // Zoek de bestaande beoordeling op basis van het reviewId
+        Review existingReview = reviewRepository.findById(reviewId).orElse(null);
+
+        if (existingReview != null) {
+            // Update de beoordeling met de nieuwe waarden
+            existingReview.setScore(updatedReview.getScore());
+            existingReview.setUser(updatedReview.getUser());
+            existingReview.setVideo(updatedReview.getVideo());
+
+            // Sla de bijgewerkte beoordeling op in de database
+            return reviewRepository.save(existingReview);
+        }
+
+        // Retourneer null of gooi een exceptie als de beoordeling niet gevonden is
+        return null;
+    }
+
 
 //    public double getAverageRatingByVideoId(Long videoId) {
 //        return reviewRepository.getAverageRatingByVideoId(videoId);
